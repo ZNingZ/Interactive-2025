@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Monkey Fetches The Moon</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: black;
+            display: flex;
+            justify-content: center;
+        }
+
+        .scroll-container {
+            width: 100%;
+            overflow-y: auto;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .long-image {
+            width: 100%; 
+            height: auto;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="scroll-container">
+        <img src="longimage.png" alt="Scrolling Image" class="long-image">
+    </div>
+</body>
+</html>
