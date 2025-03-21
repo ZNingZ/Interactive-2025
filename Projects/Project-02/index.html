@@ -1,0 +1,1260 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>The Lychee Road </title>
+<link href="https://fonts.googleapis.com/css2?family=Zhi+Mang+Xing&amp;family=Dancing+Script&amp;display=swap" rel="stylesheet"/>
+<style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: black;
+      color: white;
+      font-family: "Helvetica Neue", sans-serif;
+    }
+
+    .slider-container {
+      width: 100vw;
+      height: 100vh;
+      overflow-x: scroll;
+      overflow-y: hidden;
+      white-space: nowrap;
+      position: relative;
+    }
+
+    .slider {
+      display: flex;
+      height: 100vh;
+    }
+
+    .slider img {
+      height: 100vh;
+      width: auto;
+      object-fit: cover;
+      cursor: pointer;
+    }
+
+    .title-container {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      color: white;
+      z-index: 15;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
+
+    .title-container.active {
+      opacity: 1;
+    }
+
+    .title-en {
+      font-size: 36px;
+      font-family: 'Zhi Mang Xing', cursive;
+    }
+
+    .title-cn {
+      font-size: 28px;
+      font-family: 'Dancing Script', cursive;
+    }
+
+    .story-container {
+      position: fixed;
+      top: 220px;
+      left: 20px;
+      width: 450px;
+      background-color: rgba(150, 85, 75, 0.75);
+      padding: 20px;
+      color: white;
+      font-size: 18px;
+      font-family: 'Dancing Script', cursive;
+      line-height: 1.6;
+      border-radius: 8px;
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out;
+    }
+
+    .popup {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(255, 0, 0, 0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+      z-index: 20;
+    }
+
+    .popup.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .popup img {
+      width: 200px;
+      height: auto;
+      opacity: 0;
+      transform: scale(0.5);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .popup.active img {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .map-section {
+      background: url('https://i.imgur.com/cpTbebg.jpeg') no-repeat center center;
+      background-size: cover;
+      padding: 60px 20px;
+      text-align: center;
+    }
+
+    .map-title {
+      font-size: 36px;
+      color: #f5c4b0;
+      margin-bottom: 30px;
+      font-family: 'Zhi Mang Xing', cursive;
+    }
+
+    .timeline-scroll {
+      overflow-x: auto;
+      white-space: nowrap;
+      padding: 60px 0;
+    }
+
+    .timeline-container {
+      display: flex;
+      justify-content: flex-start;
+      gap: 80px;
+      position: relative;
+      padding: 40px;
+      min-width: 1200px;
+    }
+
+    .timeline-container::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 0;
+      height: 4px;
+      width: 100%;
+      background: #ff8888;
+      z-index: 0;
+    }
+
+    .timeline-node {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      min-width: 140px;
+    }
+
+    .timeline-node::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 14px;
+      height: 14px;
+      background-color: #ffd1d1;
+      border: 2px solid white;
+      border-radius: 50%;
+      z-index: 2;
+    }
+
+    .timeline-node .label {
+      margin-top: 30px;
+      padding: 14px 20px;
+      background: rgba(255, 255, 255, 0.07);
+      border-radius: 10px;
+      font-size: 16px;
+      color: #fff;
+      transition: 0.3s;
+      display: inline-block;
+    }
+
+    .timeline-node .label:hover {
+      background: rgba(255, 255, 255, 0.12);
+      transform: scale(1.05);
+    }
+
+    .timeline-node a {
+      color: #ffd1d1;
+      text-decoration: none;
+    }
+
+    .city-section {
+      padding: 80px 20px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      text-align: center;
+    }
+
+    .city-section h2 {
+      color: #ffcccb;
+      font-size: 28px;
+      margin-bottom: 10px;
+      font-family: 'Zhi Mang Xing', cursive;
+    }
+
+    .city-section p {
+      max-width: 800px;
+      margin: 0 auto 40px;
+      line-height: 1.8;
+      font-size: 17px;
+      color: #f3f3f3;
+    }
+  
+/* 固定标题样式 */
+.title-container {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 10;
+  color: white;
+}
+.title-en {
+  font-size: 36px;
+  font-family: 'Zhi Mang Xing', cursive;
+}
+.title-cn {
+  font-size: 28px;
+  font-family: 'Dancing Script', cursive;
+}
+
+/* 弹出图片样式 */
+.popup {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  z-index: 999;
+}
+.popup:target {
+  opacity: 1;
+  visibility: visible;
+}
+.popup img {
+  max-width: 300px;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(255,255,255,0.3);
+}
+.popup-close {
+  position: absolute;
+  top: 40px;
+  right: 60px;
+  font-size: 48px;
+  text-decoration: none;
+  color: #fff;
+  font-weight: bold;
+  transition: 0.3s;
+}
+.popup-close:hover {
+  color: #ffb3b3;
+}
+
+</style>
+<style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: black;
+      color: white;
+      font-family: "Helvetica Neue", sans-serif;
+    }
+
+    .slider-container {
+      width: 100vw;
+      height: 100vh;
+      overflow-x: scroll;
+      overflow-y: hidden;
+      white-space: nowrap;
+      position: relative;
+    }
+
+    .slider {
+      display: flex;
+      height: 100vh;
+    }
+
+    .slider a img {
+      height: 100vh;
+      width: auto;
+      object-fit: cover;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .slider a img:hover {
+      transform: scale(1.02);
+    }
+
+    .title-container {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      color: white;
+      z-index: 15;
+    }
+
+    .title-en {
+      font-size: 36px;
+      font-family: 'Zhi Mang Xing', cursive;
+    }
+
+    .title-cn {
+      font-size: 28px;
+      font-family: 'Dancing Script', cursive;
+    }
+
+    .popup-overlay {
+      display: none;
+    }
+
+    .popup-overlay:target {
+      display: flex;
+    }
+
+    .popup-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.95);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+    }
+
+    .popup-content {
+      max-width: 600px;
+      background-color: rgba(255, 255, 255, 0.05);
+      padding: 30px;
+      border-radius: 12px;
+      color: #ffdede;
+      font-family: 'Dancing Script', cursive;
+      line-height: 1.8;
+      position: relative;
+      text-align: center;
+    }
+
+    .popup-close {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      font-size: 28px;
+      text-decoration: none;
+      color: #fff;
+      font-family: Arial, sans-serif;
+    }
+
+    .popup-content strong {
+      display: block;
+      font-size: 22px;
+      margin-bottom: 10px;
+    }
+  </style></head>
+<body>
+<!-- 固定标题 -->
+<div class="title-container">
+<div class="title-en">The Lychee Road</div>
+<div class="title-cn">Chang'an's Lychee</div>
+</div>
+<!-- 滑动图像（点击打开popup） -->
+<div class="slider-container">
+<div class="slider">
+<a href="#popup">
+<a href="#guifei-popup"><img alt="Long Image 1" src="image1.jpg"/></a>
+</a>
+<a href="#popup">
+<a href="#guifei-popup"><img alt="Long Image 2" src="image2.jpg"/></a>
+</a>
+</div>
+</div>
+<!-- Popup 使用 :target 实现 -->
+<div class="popup" id="popup">
+<a class="popup-close" href="#">×</a>
+<img alt="Lychee" src="lychee.png"/>
+</div>
+<!-- 杨贵妃的故事 -->
+<div class="story-container" id="story">
+<p><strong>The Escape of Yang Guifei</strong></p>
+<p>Legend has it that during the chaos of the An Lushan Rebellion, the once-beloved concubine of Emperor Xuanzong, Yang Guifei, was forced to flee from Chang'an.In the dead of night, under the dim glow of lanterns, she was disguised and hurried along hidden paths, the fragrance of lychee lingering from her last indulgence.
+    Her heart was heavy with sorrow as she left behind the grand palaces and the emperor’s love, stepping into an uncertain fate, a symbol of fleeting beauty and tragic love in the Tang Dynasty.</p>
+</div>
+<!-- Timeline Section -->
+<!-- Transportation Route + Timeline Visualization -->
+<div class="map-section">
+<!-- Lychee Image in the Center with Black Background -->
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>The Lychee Road</title>
+<link href="https://fonts.googleapis.com/css2?family=Zhi+Mang+Xing&amp;family=Dancing+Script&amp;display=swap" rel="stylesheet"/>
+<style>
+    body {
+      margin: 0;
+      background-color: black;
+      font-family: "Helvetica Neue", sans-serif;
+      color: #ffdede;
+    }
+
+    /* Lychee Crossfade */
+    .lychee-crossfade-container {
+      background-color: black;
+      text-align: center;
+      padding: 80px 0;
+      position: relative;
+      height: 380px;
+    }
+
+    .lychee-crossfade-container img {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      max-width: 300px;
+      width: 80%;
+      height: auto;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+      opacity: 0;
+      animation: crossfade 6s infinite ease-in-out;
+    }
+
+    .lychee-crossfade-container img:nth-child(1) {
+      animation-delay: 0s;
+    }
+
+    .lychee-crossfade-container img:nth-child(2) {
+      animation-delay: 3s;
+    }
+
+    @keyframes crossfade {
+      0% { opacity: 0; }
+      10% { opacity: 1; }
+      45% { opacity: 1; }
+      55% { opacity: 0; }
+      100% { opacity: 0; }
+    }
+
+    /* Intro */
+    .intro-wrapper {
+      background-color: black;
+      width: 100%;
+      padding: 80px 20px 40px;
+    }
+
+    .intro-section {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .intro-section h2 {
+      font-family: 'Dancing Script', cursive;
+      font-size: 36px;
+      margin-bottom: 20px;
+      color: #ffdede;
+    }
+
+    .intro-section p {
+      font-size: 18px;
+      line-height: 1.8;
+      font-family: "Helvetica Neue", sans-serif;
+      margin-bottom: 16px;
+    }
+
+    /* Route Section */
+    .route-section {
+      background-color: black;
+      padding: 60px 20px;
+    }
+
+    .route-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .route-box {
+      background-color: #1e1e1e;
+      border-radius: 10px;
+      padding: 30px 20px;
+      color: #ffdede;
+      text-align: center;
+      font-size: 18px;
+      font-weight: bold;
+      box-shadow: 0 0 8px rgba(255,255,255,0.05);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .route-box:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 0 12px rgba(255, 255, 255, 0.15);
+    }
+
+    .route-box .arrow {
+      font-size: 20px;
+      color: #bbb;
+      margin: 10px 0;
+    }
+  
+/* 固定标题样式 */
+.title-container {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 10;
+  color: white;
+}
+.title-en {
+  font-size: 36px;
+  font-family: 'Zhi Mang Xing', cursive;
+}
+.title-cn {
+  font-size: 28px;
+  font-family: 'Dancing Script', cursive;
+}
+
+/* 弹出图片样式 */
+.popup {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  z-index: 999;
+}
+.popup:target {
+  opacity: 1;
+  visibility: visible;
+}
+.popup img {
+  max-width: 300px;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(255,255,255,0.3);
+}
+.popup-close {
+  position: absolute;
+  top: 40px;
+  right: 60px;
+  font-size: 48px;
+  text-decoration: none;
+  color: #fff;
+  font-weight: bold;
+  transition: 0.3s;
+}
+.popup-close:hover {
+  color: #ffb3b3;
+}
+
+</style>
+</head>
+<body>
+<!-- 两个荔枝动画图片 -->
+<div class="lychee-crossfade-container">
+<img alt="Lychee 1" src="https://i.imgur.com/jDQEdzA.jpeg"/>
+<img alt="Lychee 2" src="https://i.imgur.com/cKPvlv7.jpeg"/>
+</div>
+<!-- 🎂 Litchi Gift Introduction for Consort Yang -->
+<div class="intro-wrapper">
+<div class="intro-section">
+<h2>The Litchi Gift for Consort Yang</h2>
+<p>
+        On the first day of June, Emperor Xuanzong of Tang ordered a remarkable gift for his beloved, Consort Yang: fresh lychees, her favorite delicacy.
+      </p>
+<p>
+        From the orchards of Lingnan, these fruits began a desperate journey across mountains and rivers, covering over <strong>2,000 kilometers</strong> in mere days.
+      </p>
+<p>
+        The imperial couriers raced day and night—so relentless that <strong>dozens of horses perished</strong> from exhaustion.
+      </p>
+<p>
+        It was a delivery of love, obsession, and imperial power—for the smile of one woman.
+      </p>
+</div>
+</div>
+<!-- 可以滑动的Timeline (non-scrollable box style) -->
+<div class="route-section">
+<div class="route-grid">
+<div class="route-box">
+<span>Guangzhou</span>
+<div class="arrow">→</div>
+<span>Shaoguan</span>
+</div>
+<div class="route-box">
+<span>Shaoguan</span>
+<div class="arrow">→</div>
+<span>Chenzhou</span>
+</div>
+<div class="route-box">
+<span>Chenzhou</span>
+<div class="arrow">→</div>
+<span>Changsha</span>
+</div>
+<div class="route-box">
+<span>Changsha</span>
+<div class="arrow">→</div>
+<span>Yueyang</span>
+</div>
+<div class="route-box">
+<span>Yueyang</span>
+<div class="arrow">→</div>
+<span>Jiujiang</span>
+</div>
+<div class="route-box">
+<span>Jiujiang</span>
+<div class="arrow">→</div>
+<span>Anqing</span>
+</div>
+<div class="route-box">
+<span>Anqing</span>
+<div class="arrow">→</div>
+<span>Hefei</span>
+</div>
+<div class="route-box">
+<span>Hefei</span>
+<div class="arrow">→</div>
+<span>Luoyang</span>
+</div>
+<div class="route-box">
+<span>Luoyang</span>
+<div class="arrow">→</div>
+<span>Chang'an</span>
+</div>
+</div>
+</div>
+</body>
+</html>
+<div class="timeline-scroll" style="background: url('https://i.imgur.com/cpTbebg.jpeg') no-repeat center center; background-size: cover; padding: 60px 0;">
+<div class="timeline-container" style="justify-content: flex-start;">
+<div class="timeline-node">
+<div class="label"><a href="#guangzhou">Guangzhou</a></div>
+</div>
+<div class="timeline-node">
+<div class="label"><a href="#shaoguan">Shaoguan</a></div>
+</div>
+<div class="timeline-node">
+<div class="label"><a href="#chenzhou">Chenzhou</a></div>
+</div>
+<div class="timeline-node">
+<div class="label"><a href="#changsha">Changsha</a></div>
+</div>
+<div class="timeline-node">
+<div class="label"><a href="#yueyang">Yueyang</a></div>
+</div>
+<div class="timeline-node">
+<div class="label"><a href="#jiujiang">Jiujiang</a></div>
+</div>
+<div class="timeline-node">
+<div class="label"><a href="#anqing">Anqing</a></div>
+</div>
+<div class="timeline-node">
+<div class="label"><a href="#hefei">Hefei</a></div>
+</div>
+<div class="timeline-node">
+<div class="label"><a href="#luoyang">Luoyang</a></div>
+</div>
+<div class="timeline-node">
+<div class="label"><a href="#xian">Chang'an</a></div>
+</div>
+</div>
+</div>
+<style>
+  /* 黑色背景包裹 */
+  .lychee-gallery-section {
+    background-color: black;
+    padding: 60px 20px;
+  }
+
+  /* 网格图片布局 */
+  .lychee-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .lychee-grid img {
+    width: 100%;
+    height: 320px;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+  }
+
+  /* 城市内容区域 */
+  .city-section {
+    background-color: black;
+    padding: 60px 20px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    text-align: center;
+  }
+
+  .city-section h2 {
+    font-size: 28px;
+    color: #ffdede;
+    font-family: 'Zhi Mang Xing', cursive;
+    margin-bottom: 15px;
+  }
+
+  .city-section p {
+    max-width: 800px;
+    margin: 0 auto;
+    font-size: 16px;
+    color: #f3f3f3;
+    line-height: 1.8;
+  }
+
+/* 固定标题样式 */
+.title-container {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 10;
+  color: white;
+}
+.title-en {
+  font-size: 36px;
+  font-family: 'Zhi Mang Xing', cursive;
+}
+.title-cn {
+  font-size: 28px;
+  font-family: 'Dancing Script', cursive;
+}
+
+/* 弹出图片样式 */
+.popup {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  z-index: 999;
+}
+.popup:target {
+  opacity: 1;
+  visibility: visible;
+}
+.popup img {
+  max-width: 300px;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(255,255,255,0.3);
+}
+.popup-close {
+  position: absolute;
+  top: 40px;
+  right: 60px;
+  font-size: 48px;
+  text-decoration: none;
+  color: #fff;
+  font-weight: bold;
+  transition: 0.3s;
+}
+.popup-close:hover {
+  color: #ffb3b3;
+}
+
+</style>
+<!-- City Images之前的标题-->
+<div style="background-color: black; padding: 120px 20px 20px;">
+<h2 style="
+    color: #ffdede;
+    font-size: 38px;
+    text-align: center;
+    font-family: 'Dancing Script', cursive;
+    margin-bottom: 20px;
+  ">
+    The Journey Along the Litchi Route
+  </h2>
+</div>
+<!-- Gallery 图片展示区 -->
+<div class="lychee-gallery-section">
+<div class="lychee-grid">
+<img alt="lychee-5" src="https://i.imgur.com/T14R7qT.jpeg"/>
+<img alt="lychee-3" src="https://i.imgur.com/QnJ1Dv0.jpeg"/>
+<img alt="lychee-7" src="https://i.imgur.com/9y02nVT.jpeg"/>
+<img alt="lychee-8" src="https://i.imgur.com/cpTbebg.jpeg"/>
+<img alt="lychee-1" src="https://i.imgur.com/tglHTx3.jpeg"/>
+<img alt="lychee-2" src="https://i.imgur.com/zDmrK4d.jpeg"/>
+<img alt="lychee-6" src="https://i.imgur.com/3rNmrrM.jpeg"/>
+<img alt="lychee-4" src="https://i.imgur.com/1Cbxfe0.jpeg"/>
+</div>
+</div>
+<style>
+  .city-section {
+    background-color: black;
+    padding: 80px 20px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    text-align: center;
+    animation: fadeIn 1s ease-in-out;
+  }
+
+  .city-section h2 {
+    font-size: 30px;
+    color: #ffdede;
+    font-family: 'Zhi Mang Xing', cursive;
+    margin-bottom: 10px;
+    position: relative;
+    display: inline-block;
+  }
+
+  .city-section h2::after {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 2px;
+    background-color: #ffdede;
+    margin: 8px auto 0;
+  }
+
+  .city-section p {
+    max-width: 800px;
+    margin: 20px auto 0;
+    font-size: 17px;
+    line-height: 1.8;
+    color: #e8e8e8;
+    font-family: "Helvetica Neue", sans-serif;
+    opacity: 0.95;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+/* 固定标题样式 */
+.title-container {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 10;
+  color: white;
+}
+.title-en {
+  font-size: 36px;
+  font-family: 'Zhi Mang Xing', cursive;
+}
+.title-cn {
+  font-size: 28px;
+  font-family: 'Dancing Script', cursive;
+}
+
+/* 弹出图片样式 */
+.popup {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  z-index: 999;
+}
+.popup:target {
+  opacity: 1;
+  visibility: visible;
+}
+.popup img {
+  max-width: 300px;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(255,255,255,0.3);
+}
+.popup-close {
+  position: absolute;
+  top: 40px;
+  right: 60px;
+  font-size: 48px;
+  text-decoration: none;
+  color: #fff;
+  font-weight: bold;
+  transition: 0.3s;
+}
+.popup-close:hover {
+  color: #ffb3b3;
+}
+
+</style>
+<!-- 城市介绍City Introduction Grid (两栏布局） -->
+<style>
+  .city-wrapper {
+    background-color: black;
+    padding: 80px 20px;
+  }
+
+  .city-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 一行两个卡片 */
+    gap: 30px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .city-box {
+    background-color: #1a1a1a;
+    border-radius: 12px;
+    padding: 30px 24px;
+    text-align: center;
+    color: #ffdede;
+    font-family: "Helvetica Neue", sans-serif;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .city-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.08);
+  }
+
+  .city-box h2 {
+    font-size: 22px;
+    margin-bottom: 14px;
+    color: #ffdede;
+  }
+
+  .city-box p {
+    font-size: 15px;
+    line-height: 1.7;
+    color: #f0f0f0;
+  }
+
+  @media screen and (max-width: 768px) {
+    .city-grid {
+      grid-template-columns: 1fr; /* 小屏幕改为一列 */
+    }
+  }
+
+/* 固定标题样式 */
+.title-container {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 10;
+  color: white;
+}
+.title-en {
+  font-size: 36px;
+  font-family: 'Zhi Mang Xing', cursive;
+}
+.title-cn {
+  font-size: 28px;
+  font-family: 'Dancing Script', cursive;
+}
+
+/* 弹出图片样式 */
+.popup {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  z-index: 999;
+}
+.popup:target {
+  opacity: 1;
+  visibility: visible;
+}
+.popup img {
+  max-width: 300px;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(255,255,255,0.3);
+}
+.popup-close {
+  position: absolute;
+  top: 40px;
+  right: 60px;
+  font-size: 48px;
+  text-decoration: none;
+  color: #fff;
+  font-weight: bold;
+  transition: 0.3s;
+}
+.popup-close:hover {
+  color: #ffb3b3;
+}
+
+</style>
+<div class="city-wrapper">
+<div class="city-grid">
+<div class="city-box" id="guangzhou">
+<h2>Guangzhou</h2>
+<p>The southern capital of fruit and origin of the lychee. Following the waterways, the journey of freshness begins with a thousand-mile sprint north.</p>
+</div>
+<div class="city-box" id="shaoguan">
+<h2>Shaoguan</h2>
+<p>A key northern pass in Guangdong where river and road converge — the first station in the relay of lychees.</p>
+</div>
+<div class="city-box" id="chenzhou">
+<h2>Chenzhou</h2>
+<p>A gateway between Lingnan and Hunan. Though mountains pose barriers, the river continues to carry lychees northward.</p>
+</div>
+<div class="city-box" id="changsha">
+<h2>Changsha</h2>
+<p>A flourishing city in Chu land, serving as a major transition point along the northern route.</p>
+</div>
+<div class="city-box" id="yueyang">
+<h2>Yueyang</h2>
+<p>By the shores of Dongting Lake, boats sail smoothly, ensuring the lychees remain fresh across great distances.</p>
+</div>
+<div class="city-box" id="jiujiang">
+<h2>Jiujiang</h2>
+<p>Located on the middle reaches of the Yangtze River, it serves as a key junction for north-south distribution.</p>
+</div>
+<div class="city-box" id="anqing">
+<h2>Anqing</h2>
+<p>An ancient port town along the river, teeming with boats, enabling the lychees to cross into the next phase of the journey.</p>
+</div>
+<div class="city-box" id="hefei">
+<h2>Hefei</h2>
+<p>Travelling by both land and water, upstream along the Huai River, gathering strength for the final sprint.</p>
+</div>
+<div class="city-box" id="luoyang">
+<h2>Luoyang</h2>
+<p>A cultural stronghold of the Tang Dynasty, close to the destination, once again illuminated by Silk Road heritage.</p>
+</div>
+<div class="city-box" id="xian">
+<h2>Chang'an (Xi’an)</h2>
+<p>The final stop is also the climax — the lychees reach the imperial palace. With a single smile from the beloved concubine, the thousand-mile journey is deemed worthwhile.</p>
+</div>
+</div>
+</div>
+<!-- 🌙 Final Story Reflection -->
+<style>
+  .final-section {
+    background-color: black;
+    padding: 80px 20px 100px;
+    color: #ffdede;
+    font-family: "Helvetica Neue", sans-serif;
+    text-align: center;
+  }
+
+  .final-section h2 {
+    font-size: 30px;
+    margin-bottom: 24px;
+    font-family: 'Dancing Script', cursive;
+  }
+
+  .final-section p {
+    font-size: 17px;
+    max-width: 800px;
+    margin: 0 auto 20px;
+    line-height: 1.8;
+    color: #f0f0f0;
+  }
+
+  .final-quote {
+    font-style: italic;
+    font-size: 20px;
+    margin-top: 40px;
+    color: #ffb3b3;
+  }
+
+/* 固定标题样式 */
+.title-container {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 10;
+  color: white;
+}
+.title-en {
+  font-size: 36px;
+  font-family: 'Zhi Mang Xing', cursive;
+}
+.title-cn {
+  font-size: 28px;
+  font-family: 'Dancing Script', cursive;
+}
+
+/* 弹出图片样式 */
+.popup {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  z-index: 999;
+}
+.popup:target {
+  opacity: 1;
+  visibility: visible;
+}
+.popup img {
+  max-width: 300px;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(255,255,255,0.3);
+}
+.popup-close {
+  position: absolute;
+  top: 40px;
+  right: 60px;
+  font-size: 48px;
+  text-decoration: none;
+  color: #fff;
+  font-weight: bold;
+  transition: 0.3s;
+}
+.popup-close:hover {
+  color: #ffb3b3;
+}
+
+</style>
+<div class="final-section">
+<h2>Reflections on the Lychee Journey</h2>
+<p>
+    From the lush orchards of Lingnan to the imperial palace of Chang’an, this was more than a relay of fruit—it was a testament to devotion, to longing, and to the sheer willpower behind every step taken.
+  </p>
+<p>
+    Mountains were crossed, rivers were tamed, and time was defied. Behind the journey was not only the Emperor’s affection, but also the sweat of countless riders, the fall of exhausted horses, and the burning desire to make the impossible possible.
+  </p>
+<div class="final-quote">
+    “Even if I fail, I want to know just how close I came to the finish line. <br/>Never dismiss yourself before even starting.”
+  </div>
+</div>
+<!-- Final Lychee Image 宽度改了 -->
+<style>
+  .final-image-wrapper {
+    background-color: black;
+    padding: 60px 20px 100px;
+    text-align: center;
+  }
+
+  .final-image-wrapper img {
+    width: 80%;
+    max-width: 700px;
+    height: auto;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 12px;
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.2);
+    aspect-ratio: 3 / 2; /* 裁剪了比例，更窄 */
+  }
+
+/* 固定标题样式 */
+.title-container {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 10;
+  color: white;
+}
+.title-en {
+  font-size: 36px;
+  font-family: 'Zhi Mang Xing', cursive;
+}
+.title-cn {
+  font-size: 28px;
+  font-family: 'Dancing Script', cursive;
+}
+
+/* 弹出图片样式 */
+.popup {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  z-index: 999;
+}
+.popup:target {
+  opacity: 1;
+  visibility: visible;
+}
+.popup img {
+  max-width: 300px;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(255,255,255,0.3);
+}
+.popup-close {
+  position: absolute;
+  top: 40px;
+  right: 60px;
+  font-size: 48px;
+  text-decoration: none;
+  color: #fff;
+  font-weight: bold;
+  transition: 0.3s;
+}
+.popup-close:hover {
+  color: #ffb3b3;
+}
+
+</style>
+<div class="final-image-wrapper">
+<img alt="Final Scene of the Lychee Journey" src="https://i.imgur.com/QTGYjuA.jpeg">
+</img></div>
+</div><div class="popup-overlay" id="guifei-popup">
+<div class="popup-content">
+<a class="popup-close" href="#">×</a>
+<strong>The Escape of Yang Guifei</strong>
+<p>
+      Legend has it that during the chaos of the An Lushan Rebellion, the once-beloved concubine of Emperor Xuanzong, Yang Guifei, was forced to flee from Chang'an.
+    </p>
+<p>
+      In the dead of night, under the dim glow of lanterns, she was disguised and hurried along hidden paths, the fragrance of lychee lingering from her last indulgence.
+    </p>
+<p>
+      Her heart was heavy with sorrow as she left behind the grand palaces and the emperor’s love, stepping into an uncertain fate — a symbol of fleeting beauty and tragic love in the Tang Dynasty.
+    </p>
+</div>
+</div></body>
+</html>
