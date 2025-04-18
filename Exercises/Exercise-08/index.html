@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dark & Stormy</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #111;
+      color: #fff;
+    }
+
+    header {
+      background-color: #222;
+      padding: 20px;
+      text-align: center;
+    }
+
+    main {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    .text, .image {
+      max-width: 600px;
+      width: 100%;
+      margin-bottom: 30px;
+    }
+
+    .text h2 {
+      margin-top: 0;
+    }
+
+    .image img {
+      width: 100%;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+    }
+
+    .lime-only {
+      display: none;
+      text-align: center;
+      padding: 40px;
+    }
+
+    .lime-only img {
+      width: 100px;
+    }
+
+    footer {
+      text-align: center;
+      background: #222;
+      padding: 10px;
+      font-size: 0.9rem;
+    }
+
+    /* Mobile view: hide all and show lime only */
+    @media (max-width: 600px) {
+      main, .text, .image {
+        display: none;
+      }
+
+      .lime-only {
+        display: block;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Dark & Stormy</h1>
+  </header>
+
+  <main>
+    <section class="text">
+      <h2>How to Make It</h2>
+      <p>
+        Ingredients:<br/>
+        - 2 oz dark rum<br/>
+        - 3 oz ginger beer<br/>
+        - 1/2 oz lime juice<br/><br/>
+        Fill a highball glass with ice. Pour in the rum, top with ginger beer, and finish with fresh lime juice. Garnish with a lime wedge.
+      </p>
+    </section>
+
+    <section class="image">
+      <img src="https://i.imgur.com/knzbni4.png" />
+    </section>
+
+    <section class="text">
+      <h2>Perfect for</h2>
+      <p>A cozy evening, a stormy night, or when you just want a bold, gingery kick 🌩️</p>
+    </section>
+  </main>
+
+  <!-- Lime icon for small screen -->
+  <div class="lime-only">
+    <img src="https://i.imgur.com/Sh46ycd.png" />
+    <p>Refreshing vibes 🍋</p>
+  </div>
+
+  <footer>
+    &copy; 2025 Crafted by Ning Zhou
+  </footer>
+</body>
+</html>
