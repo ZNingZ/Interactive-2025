@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>StarTalk Weekly – Celebrity Ning</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Lora&family=Playfair+Display:wght@600&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Lora', serif;
+      font-size: 18px;
+      line-height: 1.6;
+      background: #fff;
+      color: #111;
+    }
+
+    header {
+      padding: 2rem;
+      text-align: center;
+      border-bottom: 1px solid #ccc;
+    }
+
+    header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      letter-spacing: 1px;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      padding: 1rem 0;
+      background-color: #fafafa;
+    }
+
+    nav a {
+      text-decoration: none;
+      font-weight: bold;
+      color: #555;
+      transition: all 0.2s ease;
+      padding: 0.4rem 0.8rem;
+      border-radius: 5px;
+    }
+
+    nav a:hover {
+      background: #eee;
+    }
+
+    nav a:active {
+      transform: scale(0.96);
+      background: #ddd;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+    .hero {
+      position: relative;
+      width: 100%;
+      height: 80vh;
+      overflow: hidden;
+      margin-top: 3rem;
+      cursor: pointer;
+    }
+
+    .hero-slide {
+      display: flex;
+      height: 100%;
+      transition: transform 1s ease;
+    }
+
+    .hero-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: 1;
+    }
+
+    .hero-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      font-size: 2rem;
+      font-weight: bold;
+      text-align: center;
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+      padding: 1rem;
+      z-index: 2;
+      white-space: nowrap;
+    }
+
+    .headline {
+      padding: 2rem;
+      background: #f4f4f4;
+    }
+
+    .cards {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      gap: 1rem;
+      padding: 2rem;
+      scroll-behavior: smooth;
+    }
+
+    .cards::-webkit-scrollbar {
+      display: none;
+    }
+
+    .card {
+      flex: 0 0 90vw;
+      max-width: 700px;
+      scroll-snap-align: center;
+      background: #fff;
+      border: 1px solid #ccc;
+      padding: 1.5rem;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .shape {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 30px;
+      height: 30px;
+      background: pink;
+      clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);
+      pointer-events: none;
+    }
+
+    .popup {
+      display: none;
+      position: absolute;
+      top: 50px;
+      right: 10px;
+      background: white;
+      border: 1px solid #aaa;
+      padding: 1rem;
+      width: 200px;
+      z-index: 10;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .vote-section {
+      padding: 2rem;
+      background: #eee;
+      text-align: center;
+    }
+
+    .vote-section button {
+      margin: 1rem;
+      padding: 0.5rem 1.5rem;
+      background: black;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    .gallery {
+      padding: 2rem;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .gallery-grid img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      object-fit: cover;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .gallery-grid img:hover {
+      transform: scale(1.05);
+    }
+
+    footer {
+      padding: 2rem;
+      text-align: center;
+      font-size: 0.8rem;
+      color: #999;
+      border-top: 1px solid #ccc;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>THE POTS</h1>
+    <p>The only gossip magazine where *you* are the star 🌟</p>
+  </header>
+
+  <nav>
+    <a href="index.html">Headlines</a>
+    <a href="romance.html">Romance</a>
+    <a href="style.html">Style</a>
+    <a href="interviews.html">Interviews</a>
+    <a href="trending.html">Trending</a>
+  </nav>
+
+  <section class="hero" onclick="location.href='romance.html'">
+    <div class="hero-slide" id="heroSlide">
+      <img src="https://i.imgur.com/cN0CvCR.jpeg" alt="Slide 1">
+      <img src="https://i.imgur.com/HqvlQFl.jpeg" alt="Slide 2">
+      <img src="https://i.imgur.com/SXTNpbn.jpeg" alt="Slide 3">
+    </div>
+    <div class="hero-overlay"></div>
+    <div class="hero-text">This Week’s Exclusive: Did She Really Get Back With Him?</div>
+  </section>
+
+  <section class="headline">
+    <h2>BREAKING: Ning spotted in Paris with mystery man</h2>
+    <p>Late night dinner, matching rings, and a single hotel room—sources say it's more than just a coincidence.</p>
+  </section>
+
+  <section class="cards">
+    <div class="card" onclick="location.href='style.html'">
+      <h3>Fashion Breakdown: Stunning or Chaotic?</h3>
+      <p>Ning’s cut-out sweater at the airport has fans divided.</p>
+      <div class="shape" onclick="togglePopup(0)"></div>
+      <div class="popup" id="popup-0">Style choice: “I love being unpredictable.” – Ning</div>
+    </div>
+
+    <div class="card" onclick="location.href='romance.html'">
+      <h3>Love Life: Reunited with the Ex?</h3>
+      <p>Paparazzi caught them leaving the same building. Coincidence?</p>
+      <div class="shape" onclick="togglePopup(1)"></div>
+      <div class="popup" id="popup-1">Rumor: It's her *ex* director boyfriend 👀</div>
+    </div>
+
+    <div class="card" onclick="location.href='interviews.html'">
+      <h3>Interview: “I’m not here to be perfect.”</h3>
+      <p>In a candid moment, Ning opens up about fame, freedom, and fake friendships.</p>
+      <div class="shape" onclick="togglePopup(2)"></div>
+      <div class="popup" id="popup-2">💬 “This industry eats you up unless you bite back.”</div>
+    </div>
+  </section>
+
+  <section class="gallery">
+    <h2>Spotlight Photo Gallery</h2>
+    <p>Click to view your P-montage looks, red carpet edits, and scandal snaps!</p>
+    <div class="gallery-grid">
+      <a href="style.html"><img src="https://i.imgur.com/XxNlE92.png" alt="Look 1"></a>
+      <a href="style.html"><img src="https://i.imgur.com/tRQScUP.png" alt="Look 2"></a>
+      <a href="style.html"><img src="https://i.imgur.com/tB3laep.png" alt="Look 3"></a>
+      <a href="style.html"><img src="https://i.imgur.com/cohr4X0.png" alt="Look 4"></a>
+    </div>
+  </section>
+
+  <section class="vote-section">
+    <h2>Whose side are you on?</h2>
+    <button onclick="vote('a')">Ning × Xavier Shen</button>
+    <button onclick="vote('b')">Ning × Sariel Qi</button>
+    <div id="vote-result"></div>
+  </section>
+
+  <footer>
+    &copy; 2025 THE POTS | All stories are 100% fictional & fabulous ✨
+  </footer>
+
+  <script>
+    function togglePopup(index) {
+      const popup = document.getElementById(`popup-${index}`);
+      popup.style.display = popup.style.display === 'block' ? 'none' : 'block';
+    }
+
+    function vote(option) {
+      const result = document.getElementById("vote-result");
+      if (option === 'a') {
+        result.textContent = "🔥 72% say Ning × Xavier Shen is real!";
+      } else {
+        result.textContent = "💥 28% still rooting for Sariel Qi!";
+      }
+    }
+
+    // Auto scroll cards
+    const cardsContainer = document.querySelector('.cards');
+    const cards = document.querySelectorAll('.card');
+    let currentIndex = 0;
+
+    setInterval(() => {
+      currentIndex = (currentIndex + 1) % cards.length;
+      const scrollX = cards[currentIndex].offsetLeft - cardsContainer.offsetLeft;
+      cardsContainer.scrollTo({ left: scrollX, behavior: 'smooth' });
+    }, 4000);
+
+    // Auto hero slideshow
+    const slideContainer = document.getElementById('heroSlide');
+    const totalSlides = slideContainer.children.length;
+    let slideIndex = 0;
+
+    setInterval(() => {
+      slideIndex = (slideIndex + 1) % totalSlides;
+      slideContainer.style.transform = `translateX(-${slideIndex * 100}%)`;
+    }, 5000);
+  </script>
+</body>
+</html>
+

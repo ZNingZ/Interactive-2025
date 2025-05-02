@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>STYLE</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- 引入字体 -->
+  <link href="https://fonts.googleapis.com/css2?family=Lora&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Lora', serif;
+      font-size: 18px;
+      line-height: 1.6;
+      background: #fff;
+      color: #111;
+    }
+
+    header {
+      padding: 2rem;
+      text-align: center;
+      border-bottom: 1px solid #ccc;
+    }
+
+    header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      letter-spacing: 1px;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      padding: 1rem 0;
+      background-color: #fafafa;
+    }
+
+    nav a {
+      text-decoration: none;
+      font-weight: bold;
+      color: #555;
+      padding: 0.4rem 0.8rem;
+      border-radius: 5px;
+      transition: all 0.2s ease;
+    }
+
+    nav a:hover {
+      background: #eee;
+    }
+
+    nav a:active {
+      transform: scale(0.96);
+      background: #ddd;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+
+    .gallery-section {
+      max-width: 960px;
+      margin: 3rem auto;
+      padding: 0 1.5rem;
+    }
+
+    .gallery-section h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+.placeholder-photo {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .feature-post .gallery-section {
+      max-width: 720px;
+      text-align: left;
+    }
+
+    .feature-post h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      text-align: left;
+    }
+
+    .feature-post p {
+      margin-bottom: 1.2rem;
+      text-align: left;
+    }
+
+    .feature-post .description {
+      color: #444;
+    }
+
+    .feature-post .feature-image {
+      max-width: 720px;
+      height: 700px;
+      margin: 0 auto 3rem;
+      font-size: 1.2rem;
+      background: #ddd;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #888;
+      cursor: default;
+    }
+
+    footer {
+      margin-top: 4rem;
+      padding: 2rem;
+      text-align: center;
+      font-size: 0.8rem;
+      color: #999;
+      border-top: 1px solid #ccc;
+    }
+
+    /* Lightbox 样式 */
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.8);
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+    }
+
+    .lightbox-placeholder {
+      width: 600px;
+      height: 600px;
+      background: #ddd;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #888;
+      font-size: 1.5rem;
+      border-radius: 10px;
+      border: 5px solid white;
+    }
+
+    .arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 3rem;
+      color: white;
+      cursor: pointer;
+      user-select: none;
+      padding: 0.5rem;
+      z-index: 1000;
+    }
+
+    .arrow.left {
+      left: 2rem;
+    }
+
+    .arrow.right {
+      right: 2rem;
+    }
+
+.side-label {
+  position: fixed;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  font-family: 'Playfair Display', serif;
+  font-weight: 900;
+  font-size: 2.5rem;
+  color: #111;
+  background-color: white;
+  padding: 1rem 0.5rem;
+  letter-spacing: 0.15rem;
+  z-index: 1000;
+  border-right: 2px solid #ccc;
+}
+
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>STYLE</h1>
+    <p>The only gossip magazine where *you* are the star 🌟</p>
+  </header>
+
+  <nav>
+    <a href="index.html">Headlines</a>
+    <a href="romance.html">Romance</a>
+    <a href="style.html">Style</a>
+    <a href="interviews.html">Interviews</a>
+    <a href="trending.html">Trending</a>
+  </nav>
+
+  <!-- Fashion Breakdown Post -->
+  <section class="feature-post">
+    <div class="gallery-section">
+      <h2>Fashion Breakdown: Stunning or Chaotic?</h2>
+      <p>Ning’s cut-out sweater at the airport has fans divided.</p>
+      <p class="description">
+        Onlookers were quick to snap photos of Ning as she strutted through the terminal in an oversized trench coat and a shocking cut-out knit underneath. Some praised her avant-garde boldness, while others questioned if it was fashion or faux-pas. Either way, she’s trending again.
+      </p>
+    <div class="feature-image">
+  <img src="https://i.imgur.com/SXTNpbn.jpeg" alt="Fashion Post Photo" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">
+</div>
+<p class="description">
+  Just minutes after the photos hit socials, hashtags like <em>#AirportServe</em> and <em>#SweaterGate</em> started trending. While fashion critics debated the look’s structural intent, fans dissected every angle—zooming in on the asymmetry, the peek of midriff, and whether the look was a spontaneous choice or part of a calculated PR moment. Sources close to Ning say she “didn’t blink once” at the flashing cameras. Confidence? Chaos? Maybe both—and that’s exactly the point.
+</p>
+    </div>
+  <div class="side-label">FASHION</div>
+  </section>
+
+  <!-- Original Photo Gallery -->
+<section class="gallery-section">
+  <h2>Spotlight Photo Gallery</h2>
+  <div class="gallery-grid">
+    <img src="https://i.imgur.com/0dX3nAH.png" alt="Photo 1" onclick="openLightbox(0)" class="placeholder-photo">
+    <img src="https://i.imgur.com/KFcMCTI.png" alt="Photo 2" onclick="openLightbox(1)" class="placeholder-photo">
+    <img src="https://i.imgur.com/0kmjGqd.png" alt="Photo 3" onclick="openLightbox(2)" class="placeholder-photo">
+    <img src="https://i.imgur.com/rMaVx0x.png" alt="Photo 4" onclick="openLightbox(3)" class="placeholder-photo">
+    <img src="https://i.imgur.com/Wt5WGN4.png" alt="Photo 5" onclick="openLightbox(4)" class="placeholder-photo">
+    <img src="https://i.imgur.com/vO4DM8x.png" alt="Photo 6" onclick="openLightbox(5)" class="placeholder-photo">
+    <img src="https://i.imgur.com/Z7FPU4V.png" alt="Photo 7" onclick="openLightbox(6)" class="placeholder-photo">
+    <img src="https://i.imgur.com/gbLvpHe.png" alt="Photo 8" onclick="openLightbox(7)" class="placeholder-photo">
+  </div>
+</section>
+
+  <footer>
+    &copy; 2025 StarTalk Weekly | All stories are 100% fictional & fabulous ✨
+  </footer>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+    <div class="arrow left" onclick="prevPhoto(event)">‹</div>
+    <div class="lightbox-placeholder" id="lightbox-placeholder">[ Photo ]</div>
+    <div class="arrow right" onclick="nextPhoto(event)">›</div>
+  </div>
+
+  <script>
+    const photoUrls = [
+  "https://i.imgur.com/0dX3nAH.png",
+  "https://i.imgur.com/KFcMCTI.png",
+  "https://i.imgur.com/0kmjGqd.png",
+  "https://i.imgur.com/rMaVx0x.png",
+  "https://i.imgur.com/Wt5WGN4.png",
+  "https://i.imgur.com/vO4DM8x.png",
+  "https://i.imgur.com/Z7FPU4V.png",
+  "https://i.imgur.com/gbLvpHe.png"
+];
+    const totalPhotos = 8;
+    let currentIndex = 0;
+
+    function openLightbox(index) {
+      currentIndex = index;
+      updateLightbox();
+      document.getElementById('lightbox').style.display = 'flex';
+    }
+
+    function closeLightbox(event) {
+      if (event.target.id === 'lightbox') {
+        document.getElementById('lightbox').style.display = 'none';
+      }
+    }
+
+    function nextPhoto(event) {
+      event.stopPropagation();
+      currentIndex = (currentIndex + 1) % totalPhotos;
+      updateLightbox();
+    }
+
+    function prevPhoto(event) {
+      event.stopPropagation();
+      currentIndex = (currentIndex - 1 + totalPhotos) % totalPhotos;
+      updateLightbox();
+    }
+
+   function updateLightbox() {
+  const placeholder = document.getElementById('lightbox-placeholder');
+  placeholder.innerHTML = `<img src="${photoUrls[currentIndex]}" style="max-width: 90vw; max-height: 90vh; border-radius: 10px; border: 5px solid white;">`;
+}
+  </script>
+
+</body>
+</html>
