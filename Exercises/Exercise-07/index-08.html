@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Exercise 7 – Coding from Life</title>
+  <style>
+    body {
+      background-color: #f3f1e7;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      font-family: sans-serif;
+    }
+
+    .scene {
+      position: relative;
+      width: 600px;
+      height: 400px;
+      background: #fff8dc;
+      border: 2px solid #ddd;
+      box-shadow: 5px 10px 20px rgba(0, 0, 0, 0.2);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .table {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 120px;
+      background: #d2b48c;
+      box-shadow: inset 0 10px 15px rgba(0,0,0,0.1);
+    }
+
+    .sun {
+      position: absolute;
+      top: 30px;
+      right: 30px;
+      width: 60px;
+      height: 60px;
+      background: gold;
+      border-radius: 50%;
+      box-shadow: 0 0 20px gold;
+      animation: rotate 10s linear infinite;
+    }
+
+    @keyframes rotate {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .fruit {
+      position: absolute;
+      bottom: 130px;
+      width: 80px;
+      height: 80px;
+      background: #ff6347;
+      border-radius: 50%;
+      left: 50%;
+      transform: translateX(-50%);
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+      opacity: 0.95;
+      filter: brightness(1.1);
+    }
+
+    .fruit:hover {
+      background: #e94e3c;
+      transform: translateX(-50%) scale(1.1);
+      opacity: 1;
+    }
+
+    .leaf {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: green;
+      top: -10px;
+      left: 30px;
+      border-radius: 50% 0;
+      transform: rotate(-45deg);
+      filter: contrast(1.2);
+    }
+  </style>
+</head>
+<body>
+  <div class="scene">
+    <div class="sun"></div>
+    <div class="fruit">
+      <div class="leaf"></div>
+    </div>
+    <div class="table"></div>
+  </div>
+</body>
+</html>
